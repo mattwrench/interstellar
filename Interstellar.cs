@@ -1,4 +1,5 @@
-﻿using Interstellar.Views;
+﻿using Interstellar.Models;
+using Interstellar.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +9,7 @@ namespace Interstellar
     public class Interstellar : Game
     {
         private GraphicsDeviceManager graphics;
+        private World world;
         private Renderer renderer;
 
         public Interstellar()
@@ -26,14 +28,12 @@ namespace Interstellar
 
         protected override void LoadContent()
         {
-            renderer = new Renderer(graphics);
+            world = new World();
+            renderer = new Renderer(graphics, world);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // TODO: Add your update logic here
 
             base.Update(gameTime);
