@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Interstellar.Views;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,11 +7,8 @@ namespace Interstellar
 {
     public class Interstellar : Game
     {
-        private const int WindowWidth = 1280;
-        private const int WindowHeight = 720;
-
         private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        private Renderer renderer;
 
         public Interstellar()
         {
@@ -21,10 +19,6 @@ namespace Interstellar
 
         protected override void Initialize()
         {
-            // Set window size & title
-            graphics.PreferredBackBufferWidth = WindowWidth;
-            graphics.PreferredBackBufferHeight = WindowHeight;
-            graphics.ApplyChanges();
             this.Window.Title = "Interstellar Wars";
 
             base.Initialize();
@@ -32,9 +26,7 @@ namespace Interstellar
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            renderer = new Renderer(graphics);
         }
 
         protected override void Update(GameTime gameTime)
@@ -49,10 +41,7 @@ namespace Interstellar
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            renderer.Render();
             base.Draw(gameTime);
         }
     }
