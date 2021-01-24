@@ -63,14 +63,28 @@ namespace Interstellar.Views
             spriteBatch.End();
         }
 
-        private void drawEntity(Entity entity, Texture2D texture)
+        private void drawEntity(Entity entity, Texture2D texture, float rotation)
         {
-            spriteBatch.Draw(texture, entity.Bounds, Color.White);
+            // Destination must be adjusted due to rotation
+            Rectangle dest = new Rectangle(
+                entity.Bounds.X + entity.Bounds.Width / 2,
+                entity.Bounds.Y + entity.Bounds.Height / 2,
+                entity.Bounds.Width,
+                entity.Bounds.Height);
+            spriteBatch.Draw(
+                texture,
+                dest,
+                null, 
+                Color.White, 
+                MathHelper.ToRadians(rotation), 
+                new Vector2(entity.Bounds.Width / 2, entity.Bounds.Height / 2), 
+                SpriteEffects.None, 
+                0);
         }
 
         private void drawShip(Ship ship)
         {
-            drawEntity(ship, textures.Ships[ship.ShipType]);
+            drawEntity(ship, textures.Ships[ship.ShipType], ship.Rotation);
         }
     }
 }

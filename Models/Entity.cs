@@ -20,7 +20,7 @@ namespace Interstellar.Models
             Position = new Vector2();
             Velocity = new Vector2();
             Bounds = new Rectangle();
-            Rotation = 0;
+            Rotation = 270; // Default to facing upwards
         }
 
         // Update Bounds.X/Y from Position.X/Y
