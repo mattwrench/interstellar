@@ -1,5 +1,6 @@
 ﻿using Interstellar.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,14 @@ namespace Interstellar.Views
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphicsDevice;
         private World world;
+        private TextureSet textures;
 
-        public Renderer(GraphicsDeviceManager graphics, World world)
+        public Renderer(GraphicsDeviceManager graphics, World world, ContentManager content)
         {
             graphicsDevice = graphics.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
             this.world = world;
+            textures = new TextureSet(content);
 
             // Set window size & title
             graphics.PreferredBackBufferWidth = ViewportWidth;
