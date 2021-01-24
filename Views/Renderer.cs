@@ -37,7 +37,19 @@ namespace Interstellar.Views
 
             spriteBatch.Begin();
 
+            drawShip(world.Player);
+
             spriteBatch.End();
+        }
+
+        private void drawEntity(Entity entity, Texture2D texture)
+        {
+            spriteBatch.Draw(texture, entity.Bounds, Color.White);
+        }
+
+        private void drawShip(Ship ship)
+        {
+            drawEntity(ship, textures.Ships[ship.ShipType]);
         }
     }
 }
