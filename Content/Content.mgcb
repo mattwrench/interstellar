@@ -169,3 +169,9 @@
 /processorParam:TextureFormat=Color
 /build:Images/shooter.png
 
+#begin Shaders/BloomFilter/Bloom.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/BloomFilter/Bloom.fx
+

@@ -16,6 +16,11 @@ namespace Interstellar
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //Frametime not limited to 16.66 Hz / 60 FPS
+            IsFixedTimeStep = false;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
             IsMouseVisible = true;
         }
 
