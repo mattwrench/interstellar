@@ -1,4 +1,5 @@
-﻿using Interstellar.Models;
+﻿using Interstellar.Controllers;
+using Interstellar.Models;
 using Interstellar.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,7 @@ namespace Interstellar
     {
         private GraphicsDeviceManager graphics;
         private World world;
+        private ControllerSet controllers;
         private Renderer renderer;
 
         public Interstellar()
@@ -34,13 +36,14 @@ namespace Interstellar
         protected override void LoadContent()
         {
             world = new World();
+            controllers = new ControllerSet(world);
             renderer = new Renderer(graphics, world, Content);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-
+            float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            controllers.Update(dt);
             base.Update(gameTime);
         }
 
