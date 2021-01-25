@@ -13,5 +13,12 @@ namespace Interstellar.Controllers
 
         protected abstract void setRotation(Ship ship); // Only ships will have changing rotation
         protected abstract void handleAttack(Ship ship, float dt); // Only ships can attack
+
+        // Keep ship inside world
+        protected override bool boundsCheck(Entity entity)
+        {
+            // TODO
+            return false;
+        }
     }
 }
