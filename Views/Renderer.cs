@@ -22,6 +22,7 @@ namespace Interstellar.Views
         private TextureSet textures;
         private BloomFilter bloomFilter;
         private Texture2D whiteRect; // Used for rendering rectangles
+        private Camera2D cam;
 
         public Renderer(GraphicsDeviceManager graphics, World world, ContentManager content)
         {
@@ -42,18 +43,22 @@ namespace Interstellar.Views
             bloomFilter.BloomStrengthMultiplier = BloomStrength;
 
             whiteRect = new Texture2D(graphicsDevice, 1, 1);
-            whiteRect.SetData(new[] { Color.White }); 
+            whiteRect.SetData(new[] { Color.White });
+
+            cam = new Camera2D(ViewportWidth, ViewportHeight, world.Player.Position);
         }
 
         public void Render()
         {
+            updateCamera();
+
             graphicsDevice.Clear(Color.Black);
 
             // Draw scene  render target
             RenderTarget2D renderTarget = new RenderTarget2D(graphicsDevice, ViewportWidth, ViewportHeight);
             graphicsDevice.SetRenderTarget(renderTarget);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: cam.TransformMatrix);
 
             drawBorder();
 
@@ -68,6 +73,13 @@ namespace Interstellar.Views
             spriteBatch.Draw(renderTarget, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.Draw(bloom, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.End();
+        }
+
+        // Camera follows player
+        private void updateCamera()
+        {
+            cam.Location.X = world.Player.Position.X;
+            cam.Location.Y = world.Player.Position.Y;
         }
 
         // Draw border around world

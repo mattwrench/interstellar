@@ -8,8 +8,8 @@ namespace Interstellar.Models
     // Container class for all models
     class World
     {
-        public const int Width = 1280;
-        public const int Height = 720;
+        public const int Width = 1920;
+        public const int Height = 1080;
 
         public Ship Player;
 
