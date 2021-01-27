@@ -66,6 +66,9 @@ namespace Interstellar.Views
 
             drawShip(world.Player);
 
+            foreach (Ship enemy in world.Enemies)
+                drawShip(enemy);
+
             foreach (Bullet bullet in world.Bullets)
                 drawBullet(bullet);
 

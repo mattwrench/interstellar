@@ -12,6 +12,7 @@ namespace Interstellar.Models
         public const int Height = 1080;
 
         public Ship Player;
+        public List<Ship> Enemies;
         public List<Bullet> Bullets;
 
         public World()
@@ -19,6 +20,7 @@ namespace Interstellar.Models
             // Spawn player at center of world
             Player = new Ship(new Vector2(Width / 2, Height / 2), Ship.Type.Player);
 
+            Enemies = new List<Ship>();
             Bullets = new List<Bullet>();
         }
     }
