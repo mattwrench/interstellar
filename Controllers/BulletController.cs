@@ -13,19 +13,25 @@ namespace Interstellar.Controllers
 
         public override void Update(float dt)
         {
-            foreach (Bullet bullet in world.Bullets)
+            for (int i = world.Bullets.Count - 1; i >= 0; i--)
             {
+                Bullet bullet = world.Bullets[i];
                 setPosition(bullet, dt);
                 bullet.SetBounds();
                 collisionDetect(bullet);
-                boundsCheck(bullet);
+                if (boundsCheck(bullet))
+                    world.Bullets.RemoveAt(i);
             }
         }
 
         // Eliminate out of bound bullets
         protected override bool boundsCheck(Entity entity)
         {
-            // TODO
+            if (entity.Bounds.X < 0 ||
+                entity.Bounds.X + entity.Bounds.Width > World.Width ||
+                entity.Bounds.Y < 0 ||
+                entity.Bounds.Y + entity.Bounds.Height > World.Height)
+                return true;
             return false;
         }
 
