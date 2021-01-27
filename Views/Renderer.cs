@@ -15,6 +15,7 @@ namespace Interstellar.Views
         private const float BloomThreshold = 0.1f;
         private const float BloomStrength = 1.1f;
         private const int BorderThickness = 1;
+        private const int CameraBoundsRange = 150;
 
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphicsDevice;
@@ -80,6 +81,16 @@ namespace Interstellar.Views
         {
             cam.Location.X = world.Player.Position.X;
             cam.Location.Y = world.Player.Position.Y;
+
+            // Bounds check camera
+            if (cam.Location.X - cam.ViewportWidth / 2 < -CameraBoundsRange)
+                cam.Location.X = cam.ViewportWidth / 2 - CameraBoundsRange;
+            else if (cam.Location.X + cam.ViewportWidth / 2 > World.Width + CameraBoundsRange)
+                cam.Location.X = World.Width + CameraBoundsRange - cam.ViewportWidth / 2;
+            if (cam.Location.Y - cam.ViewportHeight / 2 < -CameraBoundsRange)
+                cam.Location.Y = cam.ViewportHeight / 2 - CameraBoundsRange;
+            else if (cam.Location.Y + cam.ViewportHeight / 2 > World.Height + CameraBoundsRange)
+                cam.Location.Y = World.Height + CameraBoundsRange - cam.ViewportHeight / 2;
         }
 
         // Draw border around world
