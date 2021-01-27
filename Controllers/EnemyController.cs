@@ -1,4 +1,5 @@
 ﻿using Interstellar.Models;
+using Interstellar.Utilities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -85,9 +86,15 @@ namespace Interstellar.Controllers
             // TODO
         }
 
+        // Only need to change shooter rotation to point at player
         protected override void setRotation(Ship ship)
         {
-            // TODO
+            if (ship.ShipType == Ship.Type.Shooter)
+            {
+                Vector2 dir = Vector2.Subtract(world.Player.Position, ship.Position);
+                if (dir.LengthSquared() > 0)
+                    ship.Rotation = dir.GetAngle();
+            }
         }
 
         protected override void setVelocity(Entity entity, float dt)
