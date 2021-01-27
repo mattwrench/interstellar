@@ -13,13 +13,15 @@ namespace Interstellar.Views
         private const int ViewportWidth = 1280;
         private const int ViewportHeight = 720;
         private const float BloomThreshold = 0.1f;
-        private const float BloomStrength = 1.4f;
+        private const float BloomStrength = 1.1f;
+        private const int BorderThickness = 1;
 
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphicsDevice;
         private World world;
         private TextureSet textures;
         private BloomFilter bloomFilter;
+        private Texture2D whiteRect; // Used for rendering rectangles
 
         public Renderer(GraphicsDeviceManager graphics, World world, ContentManager content)
         {
@@ -35,9 +37,12 @@ namespace Interstellar.Views
 
             bloomFilter = new BloomFilter();
             bloomFilter.Load(graphicsDevice, content, ViewportWidth, ViewportHeight);
-            bloomFilter.BloomPreset = BloomFilter.BloomPresets.Focussed;
+            bloomFilter.BloomPreset = BloomFilter.BloomPresets.Small;
             bloomFilter.BloomThreshold = BloomThreshold;
             bloomFilter.BloomStrengthMultiplier = BloomStrength;
+
+            whiteRect = new Texture2D(graphicsDevice, 1, 1);
+            whiteRect.SetData(new[] { Color.White }); 
         }
 
         public void Render()
@@ -50,6 +55,8 @@ namespace Interstellar.Views
 
             spriteBatch.Begin();
 
+            drawBorder();
+
             drawShip(world.Player);
 
             spriteBatch.End();
@@ -61,6 +68,26 @@ namespace Interstellar.Views
             spriteBatch.Draw(renderTarget, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.Draw(bloom, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.End();
+        }
+
+        // Draw border around world
+        private void drawBorder()
+        {
+            // Left wall
+            Rectangle left = new Rectangle(0, 0, BorderThickness, World.Height);
+            drawRect(left, Color.White);
+
+            // Right wall
+            Rectangle right = new Rectangle(World.Width - BorderThickness, 0, BorderThickness, World.Height);
+            drawRect(right, Color.White);
+
+            // Top wall
+            Rectangle top = new Rectangle(0, 0, World.Width, BorderThickness);
+            drawRect(top, Color.White);
+
+            // Bottom wall
+            Rectangle bottom = new Rectangle(0, World.Height - BorderThickness, World.Width, BorderThickness);
+            drawRect(bottom, Color.White);
         }
 
         private void drawEntity(Entity entity, Texture2D texture, float rotation)
@@ -85,6 +112,11 @@ namespace Interstellar.Views
         private void drawShip(Ship ship)
         {
             drawEntity(ship, textures.Ships[ship.ShipType], ship.Rotation);
+        }
+
+        private void drawRect(Rectangle rect, Color color)
+        {
+            spriteBatch.Draw(whiteRect, rect, color);
         }
     }
 }
