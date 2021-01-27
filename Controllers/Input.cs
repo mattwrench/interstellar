@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,14 +10,34 @@ namespace Interstellar.Controllers
     {
         private static KeyboardState keyboardState, lastKeyboardState;
         private static MouseState mouseState, lastMouseState;
+        private static Camera2D camera;
 
-        public static void Update()
+        public static void Update(Camera2D cam)
         {
             lastKeyboardState = keyboardState;
             lastMouseState = mouseState;
 
             keyboardState = Keyboard.GetState();
             mouseState = Mouse.GetState();
+
+            camera = cam;
+        }
+
+        public static Vector2 MouseScreenPos
+        {
+            get
+            {
+                return new Vector2(mouseState.X, mouseState.Y);
+            }
+        }
+
+        public static Vector2 MouseWorldPos
+        {
+            get 
+            {
+                return new Vector2(mouseState.X + camera.Location.X - camera.ViewportWidth / 2,
+                    mouseState.Y + camera.Location.Y - camera.ViewportHeight / 2);
+            }
         }
 
         public static bool MoveLeft

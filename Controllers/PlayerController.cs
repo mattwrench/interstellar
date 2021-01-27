@@ -1,4 +1,5 @@
 ﻿using Interstellar.Models;
+using Interstellar.Utilities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,9 @@ namespace Interstellar.Controllers
 
         protected override void setRotation(Ship ship)
         {
-            // TODO
+            Vector2 dir = Vector2.Subtract(Input.MouseWorldPos, ship.Position);
+            if (dir.LengthSquared() > 0)
+                ship.Rotation = dir.GetAngle();
         }
 
         protected override void setVelocity(Entity entity, float dt)

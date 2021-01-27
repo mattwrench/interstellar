@@ -43,7 +43,7 @@ namespace Interstellar
         protected override void Update(GameTime gameTime)
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Input.Update();
+            Input.Update(renderer.Cam);
             controllers.Update(dt);
             base.Update(gameTime);
         }

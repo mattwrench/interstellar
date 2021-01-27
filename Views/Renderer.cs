@@ -17,13 +17,14 @@ namespace Interstellar.Views
         private const int BorderThickness = 1;
         private const int CameraBoundsRange = 150;
 
+        public Camera2D Cam;
+
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphicsDevice;
         private World world;
         private TextureSet textures;
         private BloomFilter bloomFilter;
         private Texture2D whiteRect; // Used for rendering rectangles
-        private Camera2D cam;
 
         public Renderer(GraphicsDeviceManager graphics, World world, ContentManager content)
         {
@@ -46,7 +47,7 @@ namespace Interstellar.Views
             whiteRect = new Texture2D(graphicsDevice, 1, 1);
             whiteRect.SetData(new[] { Color.White });
 
-            cam = new Camera2D(ViewportWidth, ViewportHeight, world.Player.Position);
+            Cam = new Camera2D(ViewportWidth, ViewportHeight, world.Player.Position);
         }
 
         public void Render()
@@ -59,7 +60,7 @@ namespace Interstellar.Views
             RenderTarget2D renderTarget = new RenderTarget2D(graphicsDevice, ViewportWidth, ViewportHeight);
             graphicsDevice.SetRenderTarget(renderTarget);
 
-            spriteBatch.Begin(transformMatrix: cam.TransformMatrix);
+            spriteBatch.Begin(transformMatrix: Cam.TransformMatrix);
 
             drawBorder();
 
@@ -79,18 +80,18 @@ namespace Interstellar.Views
         // Camera follows player
         private void updateCamera()
         {
-            cam.Location.X = world.Player.Position.X;
-            cam.Location.Y = world.Player.Position.Y;
+            Cam.Location.X = world.Player.Position.X;
+            Cam.Location.Y = world.Player.Position.Y;
 
             // Bounds check camera
-            if (cam.Location.X - cam.ViewportWidth / 2 < -CameraBoundsRange)
-                cam.Location.X = cam.ViewportWidth / 2 - CameraBoundsRange;
-            else if (cam.Location.X + cam.ViewportWidth / 2 > World.Width + CameraBoundsRange)
-                cam.Location.X = World.Width + CameraBoundsRange - cam.ViewportWidth / 2;
-            if (cam.Location.Y - cam.ViewportHeight / 2 < -CameraBoundsRange)
-                cam.Location.Y = cam.ViewportHeight / 2 - CameraBoundsRange;
-            else if (cam.Location.Y + cam.ViewportHeight / 2 > World.Height + CameraBoundsRange)
-                cam.Location.Y = World.Height + CameraBoundsRange - cam.ViewportHeight / 2;
+            if (Cam.Location.X - Cam.ViewportWidth / 2 < -CameraBoundsRange)
+                Cam.Location.X = Cam.ViewportWidth / 2 - CameraBoundsRange;
+            else if (Cam.Location.X + Cam.ViewportWidth / 2 > World.Width + CameraBoundsRange)
+                Cam.Location.X = World.Width + CameraBoundsRange - Cam.ViewportWidth / 2;
+            if (Cam.Location.Y - Cam.ViewportHeight / 2 < -CameraBoundsRange)
+                Cam.Location.Y = Cam.ViewportHeight / 2 - CameraBoundsRange;
+            else if (Cam.Location.Y + Cam.ViewportHeight / 2 > World.Height + CameraBoundsRange)
+                Cam.Location.Y = World.Height + CameraBoundsRange - Cam.ViewportHeight / 2;
         }
 
         // Draw border around world
