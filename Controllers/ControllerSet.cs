@@ -9,15 +9,18 @@ namespace Interstellar.Controllers
     class ControllerSet
     {
         private PlayerController playerController;
+        private BulletController bulletController;
 
-        public ControllerSet(World w)
+        public ControllerSet(World world)
         {
-            playerController = new PlayerController(w);
+            playerController = new PlayerController(world);
+            bulletController = new BulletController(world);
         }
 
         public void Update(float dt)
         {
             playerController.Update(dt);
+            bulletController.Update(dt);
         }
     }
 }
