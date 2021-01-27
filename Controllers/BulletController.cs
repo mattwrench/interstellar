@@ -38,7 +38,23 @@ namespace Interstellar.Controllers
         // Handles collisions between bullets and ships
         protected override bool collisionDetect(Entity entity)
         {
-            // TODO
+            // Enemy-bullet interaction
+            if (((Bullet)entity).IsShotByPlayer) // Enemies can only be hurt by player bullets
+            {
+                foreach (Ship enemy in world.Enemies)
+                {
+                    if (enemy.Bounds.Intersects(entity.Bounds))
+                        enemy.HitByBullet = true;
+                }
+            }
+
+            // Player-bullet interaction
+            else // Players can only be hurt by enemy bullets
+            {
+                if (world.Player.Bounds.Intersects(entity.Bounds))
+                    world.Player.HitByBullet = true;
+            }
+
             return false;
         }
 

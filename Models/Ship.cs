@@ -14,6 +14,7 @@ namespace Interstellar.Models
         }
 
         public Type ShipType;
+        public bool HitByBullet;
 
         public Ship(Vector2 pos, Type type)
         {
@@ -59,6 +60,7 @@ namespace Interstellar.Models
             SetBounds();
 
             ShootTimer = 0;
+            HitByBullet = false;
         }
     }
 }

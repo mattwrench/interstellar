@@ -40,7 +40,7 @@ namespace Interstellar.Controllers
                 setPosition(enemy, dt);
                 enemy.SetBounds();
                 boundsCheck(enemy);
-                if (collisionDetect(enemy))
+                if (collisionDetect(enemy) || enemy.HitByBullet)
                     world.Enemies.RemoveAt(i);
             }
         }
