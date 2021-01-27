@@ -66,6 +66,9 @@ namespace Interstellar.Views
 
             drawShip(world.Player);
 
+            foreach (Bullet bullet in world.Bullets)
+                drawBullet(bullet);
+
             spriteBatch.End();
 
             // Generate bloom and draw to screen
@@ -75,6 +78,12 @@ namespace Interstellar.Views
             spriteBatch.Draw(renderTarget, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.Draw(bloom, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.End();
+        }
+
+        private void drawBullet(Bullet bullet)
+        {
+            Texture2D texture = bullet.IsShotByPlayer ? textures.BulletWhite : textures.BulletGreen;
+            drawEntity(bullet, texture);
         }
 
         // Camera follows player
@@ -114,7 +123,7 @@ namespace Interstellar.Views
             drawRect(bottom, Color.White);
         }
 
-        private void drawEntity(Entity entity, Texture2D texture, float rotation)
+        private void drawEntity(Entity entity, Texture2D texture)
         {
             // Destination must be adjusted due to rotation
             Rectangle dest = new Rectangle(
@@ -127,7 +136,7 @@ namespace Interstellar.Views
                 dest,
                 null, 
                 Color.White, 
-                MathHelper.ToRadians(rotation), 
+                MathHelper.ToRadians(entity.Rotation), 
                 new Vector2(entity.Bounds.Width / 2, entity.Bounds.Height / 2), 
                 SpriteEffects.None, 
                 0);
@@ -135,7 +144,7 @@ namespace Interstellar.Views
 
         private void drawShip(Ship ship)
         {
-            drawEntity(ship, textures.Ships[ship.ShipType], ship.Rotation);
+            drawEntity(ship, textures.Ships[ship.ShipType]);
         }
 
         private void drawRect(Rectangle rect, Color color)

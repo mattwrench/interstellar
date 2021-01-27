@@ -12,11 +12,14 @@ namespace Interstellar.Models
         public const int Height = 1080;
 
         public Ship Player;
+        public List<Bullet> Bullets;
 
         public World()
         {
             // Spawn player at center of world
             Player = new Ship(new Vector2(Width / 2, Height / 2), Ship.Type.Player);
+
+            Bullets = new List<Bullet>();
         }
     }
 }
