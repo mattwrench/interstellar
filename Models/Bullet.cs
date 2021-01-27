@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Interstellar.Utilities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Interstellar.Models
             // Class attributes
             Bounds.Width = 10;
             Bounds.Height = 10;
-            TopSpeed = 500;
+            TopSpeed = 800;
 
             Position.X = pos.X;
             Position.Y = pos.Y;
@@ -21,6 +22,10 @@ namespace Interstellar.Models
             Velocity = dir;
             if (Velocity.LengthSquared() > 0)
                 Velocity = Vector2.Multiply(Velocity, TopSpeed);
+
+            SetBounds();
+
+            Rotation = dir.GetAngle();
 
             IsShotByPlayer = shotByPlayer;
         }

@@ -8,6 +8,8 @@ namespace Interstellar.Controllers
 {
     static class Input
     {
+        public static bool Attack = false;
+
         private static KeyboardState keyboardState, lastKeyboardState;
         private static MouseState mouseState, lastMouseState;
         private static Camera2D camera;
@@ -21,6 +23,11 @@ namespace Interstellar.Controllers
             mouseState = Mouse.GetState();
 
             camera = cam;
+
+            if (mouseState.LeftButton == ButtonState.Pressed)
+                Attack = true;
+            else
+                Attack = false;
         }
 
         public static Vector2 MouseScreenPos
