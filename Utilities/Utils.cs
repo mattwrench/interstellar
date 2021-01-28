@@ -7,6 +7,8 @@ namespace Interstellar.Utilities
 {
     static class Utils
     {
+        public const int DegreesInCircle = 360;
+
         public static float GetAngle(this Vector2 vec)
         {
             float radians = (float) Math.Atan2(vec.Y, vec.X);

@@ -147,7 +147,12 @@ namespace Interstellar.Views
 
         private void drawShip(Ship ship)
         {
-            drawEntity(ship, textures.Ships[ship.ShipType]);
+            // Stretch Runner instead of rotating
+            if (ship.ShipType == Ship.Type.Runner)
+                spriteBatch.Draw(textures.Ships[Ship.Type.Runner], ship.Bounds, Color.White);
+
+            else
+                drawEntity(ship, textures.Ships[ship.ShipType]);
         }
 
         private void drawRect(Rectangle rect, Color color)

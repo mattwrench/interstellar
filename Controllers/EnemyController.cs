@@ -101,5 +101,52 @@ namespace Interstellar.Controllers
         {
             // TODO
         }
+
+        protected override bool boundsCheck(Entity entity)
+        {
+            Ship ship = (Ship)entity;
+
+            if (ship.ShipType == Ship.Type.Roamer)
+            {
+                // TODO
+            }
+
+            else if (ship.ShipType == Ship.Type.Runner)
+            {
+                // TODO
+            }
+
+            else
+            {
+                // Left wall
+                if (entity.Bounds.X < 0)
+                {
+                    entity.Bounds.X = 0;
+                    entity.Position.X = entity.Bounds.X + entity.Bounds.Width / 2;
+                }
+
+                // Right wall
+                else if (entity.Bounds.X + entity.Bounds.Width > World.Width)
+                {
+                    entity.Bounds.X = World.Width - entity.Bounds.Width;
+                    entity.Position.X = entity.Bounds.X + entity.Bounds.Width / 2;
+                }
+
+                // Top wall
+                if (entity.Bounds.Y < 0)
+                {
+                    entity.Bounds.Y = 0;
+                    entity.Position.Y = entity.Bounds.Y + entity.Bounds.Height / 2;
+                }
+
+                // Bottom wall
+                else if (entity.Bounds.Y + entity.Bounds.Height > World.Height)
+                {
+                    entity.Bounds.Y = World.Height - entity.Bounds.Height;
+                    entity.Position.Y = entity.Bounds.Y + entity.Bounds.Height / 2;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Interstellar.Utilities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -61,6 +62,37 @@ namespace Interstellar.Models
 
             ShootTimer = 0;
             HitByBullet = false;
+
+            // Randomize roamer velocity
+            if (type == Type.Roamer)
+            {
+                Random rand = new Random();
+                Velocity.X = TopSpeed;
+                Velocity = Velocity.Rotate(rand.Next(Utils.DegreesInCircle));
+            }
+
+            // Randomize runner axis of movement
+            if (type == Type.Runner)
+            {
+                Random rand = new Random();
+                if (rand.Next() % 2 == 0) // Vertical
+                {
+                    int temp = Bounds.Width;
+                    Bounds.Width = Bounds.Height;
+                    Bounds.Height = temp;
+                    if (rand.Next() % 2 == 0)
+                        Velocity.Y = TopSpeed;
+                    else
+                        Velocity.Y = -TopSpeed;
+                }
+                else // Horizontal
+                {
+                    if (rand.Next() % 2 == 0)
+                        Velocity.X = TopSpeed;
+                    else
+                        Velocity.X = -TopSpeed;
+                }
+            }
         }
     }
 }
