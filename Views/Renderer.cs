@@ -25,6 +25,7 @@ namespace Interstellar.Views
         private TextureSet textures;
         private BloomFilter bloomFilter;
         private Texture2D whiteRect; // Used for rendering rectangles
+        private RenderTarget2D renderTarget;
 
         public Renderer(GraphicsDeviceManager graphics, World world, ContentManager content)
         {
@@ -48,6 +49,7 @@ namespace Interstellar.Views
             whiteRect.SetData(new[] { Color.White });
 
             Cam = new Camera2D(ViewportWidth, ViewportHeight, world.Player.Position);
+            renderTarget = new RenderTarget2D(graphicsDevice, ViewportWidth, ViewportHeight);
         }
 
         public void Render()
@@ -57,7 +59,6 @@ namespace Interstellar.Views
             graphicsDevice.Clear(Color.Black);
 
             // Draw scene  render target
-            RenderTarget2D renderTarget = new RenderTarget2D(graphicsDevice, ViewportWidth, ViewportHeight);
             graphicsDevice.SetRenderTarget(renderTarget);
 
             spriteBatch.Begin(transformMatrix: Cam.TransformMatrix);
