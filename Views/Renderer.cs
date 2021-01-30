@@ -61,7 +61,7 @@ namespace Interstellar.Views
             // Draw scene to render target
             graphicsDevice.SetRenderTarget(renderTarget);
 
-            spriteBatch.Begin(transformMatrix: Cam.TransformMatrix);
+            spriteBatch.Begin(blendState: BlendState.AlphaBlend, transformMatrix: Cam.TransformMatrix);
 
             drawBorder();
 
@@ -87,7 +87,7 @@ namespace Interstellar.Views
         private void drawBullet(Bullet bullet)
         {
             Texture2D texture = bullet.IsShotByPlayer ? textures.BulletWhite : textures.BulletGreen;
-            drawEntity(bullet, texture);
+            drawEntity(bullet, texture, Color.White);
         }
 
         // Camera follows player
@@ -127,7 +127,7 @@ namespace Interstellar.Views
             drawRect(bottom, Color.White);
         }
 
-        private void drawEntity(Entity entity, Texture2D texture)
+        private void drawEntity(Entity entity, Texture2D texture, Color color)
         {
             // Destination must be adjusted due to rotation
             Rectangle dest = new Rectangle(
@@ -139,7 +139,7 @@ namespace Interstellar.Views
                 texture,
                 dest,
                 null, 
-                Color.White, 
+                color, 
                 MathHelper.ToRadians(entity.Rotation), 
                 new Vector2(entity.Bounds.Width / 2, entity.Bounds.Height / 2), 
                 SpriteEffects.None, 
@@ -148,12 +148,22 @@ namespace Interstellar.Views
 
         private void drawShip(Ship ship)
         {
+            Color color;
+            if (ship.ShipType == Ship.Type.Player)
+            {
+                color = Color.White;
+            }
+            else
+            {
+                color = Color.White * ((ship.FadeInTimer) / (Ship.FadeInLength));
+            }
+
             // Stretch Runner instead of rotating
             if (ship.ShipType == Ship.Type.Runner)
                 spriteBatch.Draw(textures.Ships[Ship.Type.Runner], ship.Bounds, Color.White);
 
             else
-                drawEntity(ship, textures.Ships[ship.ShipType]);
+                drawEntity(ship, textures.Ships[ship.ShipType], color);
         }
 
         private void drawRect(Rectangle rect, Color color)

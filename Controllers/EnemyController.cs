@@ -35,14 +35,20 @@ namespace Interstellar.Controllers
             for (int i = world.Enemies.Count - 1; i >= 0; i--)
             {
                 Ship enemy = world.Enemies[i];
-                setRotation(enemy);
-                handleAttack(enemy, dt);
-                setVelocity(enemy, dt);
-                setPosition(enemy, dt);
-                enemy.SetBounds();
-                boundsCheck(enemy);
-                if (collisionDetect(enemy) || enemy.HitByBullet)
-                    world.Enemies.RemoveAt(i);
+
+                enemy.FadeInTimer += dt;
+
+                if (enemy.FadeInTimer > Ship.FadeInLength)
+                {
+                    setRotation(enemy);
+                    handleAttack(enemy, dt);
+                    setVelocity(enemy, dt);
+                    setPosition(enemy, dt);
+                    enemy.SetBounds();
+                    boundsCheck(enemy);
+                    if (collisionDetect(enemy) || enemy.HitByBullet)
+                        world.Enemies.RemoveAt(i);
+                }
             }
         }
 

@@ -8,6 +8,8 @@ namespace Interstellar.Models
 {
     class Ship : Entity
     {
+        public const float FadeInLength = 1.5f;
+
         public float ShootTimer, ShootRate;
         public enum Type
         {
@@ -16,7 +18,7 @@ namespace Interstellar.Models
 
         public Type ShipType;
         public bool HitByBullet;
-
+        public float FadeInTimer;
         public Ship(Vector2 pos, Type type)
         {
             // Class attributes
@@ -62,6 +64,8 @@ namespace Interstellar.Models
 
             ShootTimer = 0;
             HitByBullet = false;
+
+            FadeInTimer = 0;
 
             // Randomize roamer velocity
             if (type == Type.Roamer)
