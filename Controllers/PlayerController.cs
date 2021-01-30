@@ -9,9 +9,6 @@ namespace Interstellar.Controllers
 {
     class PlayerController : ShipController
     {
-        private float BulletVerticalSpawnDist = 20.0f;
-        private float BulletHorizontalSpawnDist = 25.0f;
-
         public PlayerController(World w) : base(w)
         {
         }

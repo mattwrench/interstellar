@@ -84,7 +84,23 @@ namespace Interstellar.Controllers
 
         protected override void handleAttack(Ship ship, float dt)
         {
-            // TODO
+            if (ship.ShipType == Ship.Type.Shooter)
+            {
+                ship.ShootTimer += dt;
+                if (ship.ShootTimer >= ship.ShootRate)
+                {
+                    ship.ShootTimer -= ship.ShootRate;
+
+                    Vector2 dir = Vector2.Subtract(world.Player.Position, ship.Position);
+                    if (dir.LengthSquared() > 0)
+                        dir.Normalize();
+
+                    Vector2 pos = new Vector2(ship.Position.X, ship.Position.Y);
+                    pos = Vector2.Add(pos, Vector2.Multiply(dir, BulletVerticalSpawnDist));
+
+                    world.Bullets.Add(new Bullet(pos, dir, false));
+                }
+            }
         }
 
         // Only need to change shooter rotation to point at player

@@ -31,7 +31,7 @@ namespace Interstellar.Models
                 case Type.Roamer:
                     Bounds.Width = 25;
                     Bounds.Height = 25;
-                    TopSpeed = 200;
+                    TopSpeed = 250;
                     ShootRate = 0; // Does not shoot
                     break;
                 case Type.Chaser:
@@ -49,7 +49,7 @@ namespace Interstellar.Models
                 case Type.Shooter:
                     Bounds.Width = 40;
                     Bounds.Height = 40;
-                    TopSpeed = 250;
+                    TopSpeed = 200;
                     ShootRate = 1.5f;
                     break;
             }

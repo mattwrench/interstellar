@@ -7,6 +7,9 @@ namespace Interstellar.Controllers
 {
     abstract class ShipController : EntityController
     {
+        protected float BulletVerticalSpawnDist = 20.0f;
+        protected float BulletHorizontalSpawnDist = 25.0f;
+
         public ShipController(World w) : base(w)
         {
         }

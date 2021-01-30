@@ -13,7 +13,7 @@ namespace Interstellar.Views
         private const int ViewportWidth = 1280;
         private const int ViewportHeight = 720;
         private const float BloomThreshold = 0.1f;
-        private const float BloomStrength = 1.1f;
+        private const float BloomStrength = 1.2f;
         private const int BorderThickness = 1;
         private const int CameraBoundsRange = 150;
 
