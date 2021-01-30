@@ -58,7 +58,7 @@ namespace Interstellar.Views
 
             graphicsDevice.Clear(Color.Black);
 
-            // Draw scene  render target
+            // Draw scene to render target
             graphicsDevice.SetRenderTarget(renderTarget);
 
             spriteBatch.Begin(transformMatrix: Cam.TransformMatrix);
