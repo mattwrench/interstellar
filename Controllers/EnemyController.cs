@@ -15,6 +15,7 @@ namespace Interstellar.Controllers
         private const float RunnerSpawnChance = 0.2f;
         private const float ShooterSpawnChance = 0.1f;
         private const float MinSpawnDist = 200f;
+        private const float ShooterSlowdownDist = 200f;
 
         private Random rand;
         private float spawnTimer;
@@ -99,7 +100,24 @@ namespace Interstellar.Controllers
 
         protected override void setVelocity(Entity entity, float dt)
         {
-            // TODO
+            Ship ship = (Ship)entity;
+
+            if (ship.ShipType == Ship.Type.Chaser || ship.ShipType == Ship.Type.Shooter)
+            {
+                ship.Velocity = Vector2.Subtract(world.Player.Position, ship.Position);
+                if (ship.Velocity.LengthSquared() > 0)
+                    ship.Velocity = Vector2.Multiply(Vector2.Normalize(ship.Velocity), ship.TopSpeed);
+
+                // Reduce Shooter speed as it gets close to player
+                if (ship.ShipType == Ship.Type.Shooter)
+                {
+                    float dist = Vector2.Distance(ship.Position, world.Player.Position);
+                    if (dist < ShooterSlowdownDist)
+                    {
+                        ship.Velocity = Vector2.Multiply(ship.Velocity, dist / ShooterSlowdownDist);
+                    }
+                }
+            }
         }
 
         protected override bool boundsCheck(Entity entity)
