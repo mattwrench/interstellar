@@ -32,6 +32,7 @@ namespace Interstellar.Controllers
             {
                 if (enemy.Bounds.Intersects(entity.Bounds))
                 {
+                    spawnParticles((Ship)entity);
                     ((Ship)entity).Dead = true;
                 }
             }

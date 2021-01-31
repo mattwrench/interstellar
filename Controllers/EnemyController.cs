@@ -45,10 +45,12 @@ namespace Interstellar.Controllers
                     setVelocity(enemy, dt);
                     setPosition(enemy, dt);
                     enemy.SetBounds();
-                    boundsCheck(enemy);
                 }
+                boundsCheck(enemy);
                 if (enemy.Dead)
+                {
                     world.Enemies.RemoveAt(i);
+                }
             }
         }
 

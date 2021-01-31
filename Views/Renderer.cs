@@ -67,6 +67,9 @@ namespace Interstellar.Views
 
             drawBorder();
 
+            foreach (Particle particle in world.Particles)
+                drawParticle(particle);
+
             drawShip(world.Player);
 
             foreach (Ship enemy in world.Enemies)
@@ -91,7 +94,6 @@ namespace Interstellar.Views
 
         private void drawText()
         {
-            drawStringAtCenter("TEST");
         }
 
         // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)
@@ -189,6 +191,11 @@ namespace Interstellar.Views
         private void drawRect(Rectangle rect, Color color)
         {
             spriteBatch.Draw(whiteRect, rect, color);
+        }
+
+        private void drawParticle(Particle particle)
+        {
+            drawEntity(particle, textures.Particles[particle.ShipColor], Color.White);
         }
     }
 }

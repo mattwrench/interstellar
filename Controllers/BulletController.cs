@@ -44,7 +44,10 @@ namespace Interstellar.Controllers
                 foreach (Ship enemy in world.Enemies)
                 {
                     if (enemy.Bounds.Intersects(entity.Bounds))
+                    {
+                        spawnParticles(enemy);
                         enemy.Dead = true;
+                    }
                 }
             }
 
@@ -52,7 +55,10 @@ namespace Interstellar.Controllers
             else // Players can only be hurt by enemy bullets
             {
                 if (world.Player.Bounds.Intersects(entity.Bounds))
+                {
+                    spawnParticles((Ship)entity);
                     world.Player.Dead = true;
+                }
             }
 
             return false;

@@ -14,6 +14,7 @@ namespace Interstellar.Models
         public Ship Player;
         public List<Ship> Enemies;
         public List<Bullet> Bullets;
+        public List<Particle> Particles;
 
         public World()
         {
@@ -22,6 +23,7 @@ namespace Interstellar.Models
 
             Enemies = new List<Ship>();
             Bullets = new List<Bullet>();
+            Particles = new List<Particle>();
         }
     }
 }
