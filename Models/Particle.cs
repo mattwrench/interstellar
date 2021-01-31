@@ -8,7 +8,10 @@ namespace Interstellar.Models
 {
     class Particle : Entity
     {
+        public const float LifeLength = .75f;
+
         public Ship.Type ShipColor;
+        public float TimeToLive;
 
         public Particle(Vector2 pos, Vector2 dir, Ship.Type shipColor)
         {
@@ -28,6 +31,8 @@ namespace Interstellar.Models
 
             Rotation = dir.GetAngle();
             ShipColor = shipColor;
+
+            TimeToLive = LifeLength;
         }
     }
 }

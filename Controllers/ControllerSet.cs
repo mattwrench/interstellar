@@ -11,12 +11,14 @@ namespace Interstellar.Controllers
         private PlayerController playerController;
         private EnemyController enemyController;
         private BulletController bulletController;
+        private ParticleController particleController;
 
         public ControllerSet(World world)
         {
             playerController = new PlayerController(world);
             enemyController = new EnemyController(world);
             bulletController = new BulletController(world);
+            particleController = new ParticleController(world);
         }
 
         public void Update(float dt)
@@ -24,6 +26,7 @@ namespace Interstellar.Controllers
             playerController.Update(dt);
             enemyController.Update(dt);
             bulletController.Update(dt);
+            particleController.Update(dt);
         }
     }
 }

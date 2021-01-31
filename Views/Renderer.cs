@@ -195,7 +195,8 @@ namespace Interstellar.Views
 
         private void drawParticle(Particle particle)
         {
-            drawEntity(particle, textures.Particles[particle.ShipColor], Color.White);
+            Color color = Color.White * (particle.TimeToLive / Particle.LifeLength);
+            drawEntity(particle, textures.Particles[particle.ShipColor], color);
         }
     }
 }
