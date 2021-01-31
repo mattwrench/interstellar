@@ -16,6 +16,7 @@ namespace Interstellar.Views
         private const float BloomStrength = 1.2f;
         private const int BorderThickness = 1;
         private const int CameraBoundsRange = 150;
+        private const int LineSpacingReduction = 10;
 
         public Camera2D Cam;
 
@@ -94,6 +95,9 @@ namespace Interstellar.Views
 
         private void drawText()
         {
+            // Score
+            spriteBatch.DrawString(font, "SCORE", new Vector2(), Color.White);
+            spriteBatch.DrawString(font, world.Score.ToString(), new Vector2(0, font.LineSpacing - LineSpacingReduction), Color.White);
         }
 
         // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)

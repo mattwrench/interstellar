@@ -49,6 +49,7 @@ namespace Interstellar.Controllers
                 boundsCheck(enemy);
                 if (enemy.Dead)
                 {
+                    world.Score += enemy.ScoreValue;
                     world.Enemies.RemoveAt(i);
                 }
             }
