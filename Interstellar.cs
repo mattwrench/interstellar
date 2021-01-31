@@ -16,7 +16,10 @@ namespace Interstellar
             Ready, Playing, Paused, GameOver
         }
 
+        private const float ReadyLength = 3.0f;
+
         private GameState gameState;
+        private float timer;
         private GraphicsDeviceManager graphics;
         private World world;
         private ControllerSet controllers;
@@ -43,7 +46,8 @@ namespace Interstellar
 
         protected override void LoadContent()
         {
-            gameState = GameState.Playing;
+            gameState = GameState.Ready;
+            timer = -ReadyLength; // Playing starts at 0
             world = new World();
             controllers = new ControllerSet(world);
             renderer = new Renderer(graphics, world, Content);
@@ -71,6 +75,14 @@ namespace Interstellar
 
         private void setGameState(float dt)
         {
+            // Update timers
+            if (gameState == GameState.Ready || gameState == GameState.Playing)
+                timer += dt;
+
+            // Ready to Playing
+            if (gameState == GameState.Ready && timer >= 0)
+                gameState = GameState.Playing;
+
             // Reset game
             if (world.Player.Dead)
             {
@@ -96,7 +108,7 @@ namespace Interstellar
 
         protected override void Draw(GameTime gameTime)
         {
-            renderer.Render();
+            renderer.Render(gameState);
             base.Draw(gameTime);
         }
     }

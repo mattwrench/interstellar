@@ -55,7 +55,7 @@ namespace Interstellar.Views
             font = content.Load<SpriteFont>("Fonts/Consolas");
         }
 
-        public void Render()
+        public void Render(Interstellar.GameState gameState)
         {
             updateCamera();
 
@@ -88,12 +88,12 @@ namespace Interstellar.Views
             spriteBatch.Draw(renderTarget, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.Draw(bloom, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
 
-            drawText();
+            drawText(gameState);
 
             spriteBatch.End();
         }
 
-        private void drawText()
+        private void drawText(Interstellar.GameState gameState)
         {
             // Score
             spriteBatch.DrawString(font, "SCORE", new Vector2(), Color.White);
@@ -104,6 +104,9 @@ namespace Interstellar.Views
             spriteBatch.DrawString(font, "HIGH SCORE", new Vector2(ViewportWidth - size.X, 0), Color.White);
             size = font.MeasureString(world.HighScore.ToString());
             spriteBatch.DrawString(font, world.HighScore.ToString(), new Vector2(ViewportWidth - size.X, font.LineSpacing - LineSpacingReduction), Color.White);
+
+            if (gameState == Interstellar.GameState.Ready)
+                drawStringAtCenter("READY");
         }
 
         // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)
