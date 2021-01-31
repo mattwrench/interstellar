@@ -9,6 +9,7 @@ namespace Interstellar.Models
     class Ship : Entity
     {
         public const float FadeInLength = 1.25f;
+        public const int CenterSize = 4;
 
         public float ShootTimer, ShootRate;
         public enum Type
@@ -20,6 +21,7 @@ namespace Interstellar.Models
         public bool Dead;
         public float FadeInTimer;
         public int ScoreValue;
+        public Rectangle CenterBounds; // Only used by player
 
         public Ship(Vector2 pos, Type type)
         {
@@ -104,6 +106,28 @@ namespace Interstellar.Models
                         Velocity.X = -TopSpeed;
                 }
             }
+
+            if (type == Type.Player)
+            {
+                CenterBounds = new Rectangle(
+                    (int)Position.X - CenterSize / 2, 
+                    (int)Position.Y - CenterSize / 2, 
+                    CenterSize, 
+                    CenterSize);
+            }
         }
+
+        public override void SetBounds()
+        {
+            Bounds.X = (int)(Position.X - Bounds.Width / 2);
+            Bounds.Y = (int)(Position.Y - Bounds.Height / 2);
+
+            if (ShipType == Type.Player)
+            {
+                CenterBounds.X = (int)(Position.X - CenterSize / 2);
+                CenterBounds.Y = (int)(Position.Y - CenterSize / 2);
+            }
+        }
+
     }
 }

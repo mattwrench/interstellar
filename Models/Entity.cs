@@ -24,7 +24,7 @@ namespace Interstellar.Models
         }
 
         // Update Bounds.X/Y from Position.X/Y
-        public void SetBounds()
+        public virtual void SetBounds()
         {
             Bounds.X = (int)(Position.X - Bounds.Width / 2);
             Bounds.Y = (int)(Position.Y - Bounds.Height / 2);
