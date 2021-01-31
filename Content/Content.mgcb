@@ -176,9 +176,57 @@
 /processorParam:TextureFormat=Color
 /build:Images/shooter.png
 
+#begin Music/Punch Deck - Bhangra Bass.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/Punch Deck - Bhangra Bass.wav
+
+#begin Music/Punch Deck - More More More.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Punch Deck - More More More.mp3
+
+#begin Music/Punch Deck - Signal in the Noise.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/Punch Deck - Signal in the Noise.wav
+
+#begin Music/Punch Deck - The Traveler.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Punch Deck - The Traveler.mp3
+
 #begin Shaders/BloomFilter/Bloom.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/BloomFilter/Bloom.fx
+
+#begin Sounds/explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion.wav
+
+#begin Sounds/lose.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/lose.wav
+
+#begin Sounds/pause.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/pause.wav
+
+#begin Sounds/shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/shoot.wav
 
