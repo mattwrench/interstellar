@@ -26,6 +26,7 @@ namespace Interstellar.Views
         private BloomFilter bloomFilter;
         private Texture2D whiteRect; // Used for rendering rectangles
         private RenderTarget2D renderTarget;
+        private SpriteFont font;
 
         public Renderer(GraphicsDeviceManager graphics, World world, ContentManager content)
         {
@@ -50,6 +51,7 @@ namespace Interstellar.Views
 
             Cam = new Camera2D(ViewportWidth, ViewportHeight, world.Player.Position);
             renderTarget = new RenderTarget2D(graphicsDevice, ViewportWidth, ViewportHeight);
+            font = content.Load<SpriteFont>("Fonts/Consolas");
         }
 
         public void Render()
@@ -81,7 +83,25 @@ namespace Interstellar.Views
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
             spriteBatch.Draw(renderTarget, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
             spriteBatch.Draw(bloom, new Rectangle(0, 0, ViewportWidth, ViewportHeight), Color.White);
+
+            drawText();
+
             spriteBatch.End();
+        }
+
+        private void drawText()
+        {
+            drawStringAtCenter("TEST");
+        }
+
+        // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)
+        private void drawStringAtCenter(String str)
+        {
+            Vector2 size = font.MeasureString(str);
+            spriteBatch.DrawString(font, 
+                str, 
+                new Vector2(ViewportWidth / 2 - size.X / 2, ViewportHeight / 4 - size.Y / 2), 
+                Color.White);
         }
 
         private void drawBullet(Bullet bullet)
