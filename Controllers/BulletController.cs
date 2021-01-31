@@ -54,7 +54,7 @@ namespace Interstellar.Controllers
             // Player-bullet interaction
             else // Players can only be hurt by enemy bullets
             {
-                if (world.Player.Bounds.Intersects(((Ship)entity).CenterBounds))
+                if (world.Player.CenterBounds.Intersects(entity.Bounds))
                 {
                     spawnParticles(world.Player);
                     world.Player.Dead = true;
