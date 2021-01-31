@@ -176,11 +176,11 @@
 /processorParam:TextureFormat=Color
 /build:Images/shooter.png
 
-#begin Music/Punch Deck - Bhangra Bass.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
+#begin Music/Punch Deck - Bhangra Bass.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Music/Punch Deck - Bhangra Bass.wav
+/build:Music/Punch Deck - Bhangra Bass.mp3
 
 #begin Music/Punch Deck - More More More.mp3
 /importer:Mp3Importer
@@ -188,11 +188,11 @@
 /processorParam:Quality=Best
 /build:Music/Punch Deck - More More More.mp3
 
-#begin Music/Punch Deck - Signal in the Noise.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
+#begin Music/Punch Deck - Signal in the Noise.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Music/Punch Deck - Signal in the Noise.wav
+/build:Music/Punch Deck - Signal in the Noise.mp3
 
 #begin Music/Punch Deck - The Traveler.mp3
 /importer:Mp3Importer

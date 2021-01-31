@@ -5,6 +5,7 @@ using Interstellar.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.IO;
 
@@ -26,6 +27,7 @@ namespace Interstellar
         private World world;
         private ControllerSet controllers;
         private Renderer renderer;
+        private Random rand;
 
         public Interstellar()
         {
@@ -40,6 +42,7 @@ namespace Interstellar
 
             // Load audio seperately
             AudioHandler.Load(Content);
+            rand = new Random();
         }
 
         protected override void Initialize()
@@ -89,7 +92,11 @@ namespace Interstellar
 
             // Ready to Playing
             if (gameState == GameState.Ready && timer >= 0)
+            {
+                MediaPlayer.Play(AudioHandler.Songs[rand.Next(AudioHandler.NumSongs)]);
+                MediaPlayer.IsRepeating = true;
                 gameState = GameState.Playing;
+            }
 
             // Ready || Playing to Paused
             if (gameState == GameState.Ready || gameState == GameState.Playing)
@@ -97,6 +104,7 @@ namespace Interstellar
                 if (Input.Pause)
                 {
                     AudioHandler.Pause.Play();
+                    MediaPlayer.Pause();
                     gameState = GameState.Paused;
                 }
             }
@@ -108,13 +116,17 @@ namespace Interstellar
                 if (timer < 0)
                     gameState = GameState.Ready;
                 else
+                {
                     gameState = GameState.Playing;
+                    MediaPlayer.Resume();
+                }
             }
 
             // Game over
             if (world.Player.Dead && gameState != GameState.GameOver)
             {
                 AudioHandler.Lose.Play();
+                MediaPlayer.Pause();
                 gameState = GameState.GameOver;
                 // Save high score
                 if (world.Score > world.HighScore)

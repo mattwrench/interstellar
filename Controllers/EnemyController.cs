@@ -50,7 +50,7 @@ namespace Interstellar.Controllers
                 boundsCheck(enemy);
                 if (enemy.Dead)
                 {
-                    AudioHandler.Explosion.Play();
+                    AudioHandler.Explosion.Play(AudioHandler.ExplosionVolume, 0, 0);
                     world.Score += enemy.ScoreValue;
                     world.Enemies.RemoveAt(i);
                 }
