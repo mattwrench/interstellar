@@ -21,12 +21,15 @@ namespace Interstellar.Controllers
             particleController = new ParticleController(world);
         }
 
-        public void Update(float dt)
+        public void Update(float dt, Interstellar.GameState gameState)
         {
-            playerController.Update(dt);
-            enemyController.Update(dt);
-            bulletController.Update(dt);
-            particleController.Update(dt);
+            if (gameState == Interstellar.GameState.Playing)
+            {
+                playerController.Update(dt);
+                enemyController.Update(dt);
+                bulletController.Update(dt);
+                particleController.Update(dt);
+            }
         }
     }
 }

@@ -11,6 +11,12 @@ namespace Interstellar
 {
     public class Interstellar : Game
     {
+        public enum GameState
+        {
+            Ready, Playing, Paused, GameOver
+        }
+
+        private GameState gameState;
         private GraphicsDeviceManager graphics;
         private World world;
         private ControllerSet controllers;
@@ -37,6 +43,7 @@ namespace Interstellar
 
         protected override void LoadContent()
         {
+            gameState = GameState.Playing;
             world = new World();
             controllers = new ControllerSet(world);
             renderer = new Renderer(graphics, world, Content);
@@ -58,7 +65,7 @@ namespace Interstellar
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             setGameState(dt);
             Input.Update(renderer.Cam);
-            controllers.Update(dt);
+            controllers.Update(dt, gameState);
             base.Update(gameTime);
         }
 
