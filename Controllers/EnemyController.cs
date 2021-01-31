@@ -1,4 +1,5 @@
-﻿using Interstellar.Models;
+﻿using Interstellar.Audio;
+using Interstellar.Models;
 using Interstellar.Utilities;
 using Microsoft.Xna.Framework;
 using System;
@@ -49,6 +50,7 @@ namespace Interstellar.Controllers
                 boundsCheck(enemy);
                 if (enemy.Dead)
                 {
+                    AudioHandler.Explosion.Play();
                     world.Score += enemy.ScoreValue;
                     world.Enemies.RemoveAt(i);
                 }
@@ -108,6 +110,7 @@ namespace Interstellar.Controllers
                     pos = Vector2.Add(pos, Vector2.Multiply(dir, BulletVerticalSpawnDist));
 
                     world.Bullets.Add(new Bullet(pos, dir, false));
+                    AudioHandler.Shoot.Play();
                 }
             }
         }

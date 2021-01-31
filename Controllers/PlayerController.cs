@@ -1,4 +1,5 @@
-﻿using Interstellar.Models;
+﻿using Interstellar.Audio;
+using Interstellar.Models;
 using Interstellar.Utilities;
 using Microsoft.Xna.Framework;
 using System;
@@ -77,6 +78,7 @@ namespace Interstellar.Controllers
                     pos = Vector2.Subtract(pos, offset);
                     pos = Vector2.Subtract(pos, offset);
                     world.Bullets.Add(new Bullet(pos, dir, true));
+                    AudioHandler.Shoot.Play(AudioHandler.PlayerShootVolume, 0, 0);
                 }
             }
 

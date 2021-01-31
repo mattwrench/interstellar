@@ -1,4 +1,5 @@
-﻿using Interstellar.Controllers;
+﻿using Interstellar.Audio;
+using Interstellar.Controllers;
 using Interstellar.Models;
 using Interstellar.Views;
 using Microsoft.Xna.Framework;
@@ -36,6 +37,9 @@ namespace Interstellar
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             IsMouseVisible = true;
+
+            // Load audio seperately
+            AudioHandler.Load(Content);
         }
 
         protected override void Initialize()
@@ -91,12 +95,16 @@ namespace Interstellar
             if (gameState == GameState.Ready || gameState == GameState.Playing)
             {
                 if (Input.Pause)
+                {
+                    AudioHandler.Pause.Play();
                     gameState = GameState.Paused;
+                }
             }
 
             // Paused to Ready || Playing
             if (gameState == GameState.Paused && !Input.Pause)
             {
+                AudioHandler.Pause.Play();
                 if (timer < 0)
                     gameState = GameState.Ready;
                 else
@@ -106,6 +114,7 @@ namespace Interstellar
             // Game over
             if (world.Player.Dead && gameState != GameState.GameOver)
             {
+                AudioHandler.Lose.Play();
                 gameState = GameState.GameOver;
                 // Save high score
                 if (world.Score > world.HighScore)
