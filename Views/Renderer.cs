@@ -107,6 +107,8 @@ namespace Interstellar.Views
 
             if (gameState == Interstellar.GameState.Ready)
                 drawStringAtCenter("READY");
+            else if (gameState == Interstellar.GameState.Paused)
+                drawStringAtCenter("PAUSED");
         }
 
         // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)

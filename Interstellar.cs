@@ -83,6 +83,22 @@ namespace Interstellar
             if (gameState == GameState.Ready && timer >= 0)
                 gameState = GameState.Playing;
 
+            // Ready || Playing to Paused
+            if (gameState == GameState.Ready || gameState == GameState.Playing)
+            {
+                if (Input.Pause)
+                    gameState = GameState.Paused;
+            }
+
+            // Paused to Ready || Playing
+            if (gameState == GameState.Paused && !Input.Pause)
+            {
+                if (timer < 0)
+                    gameState = GameState.Ready;
+                else
+                    gameState = GameState.Playing;
+            }
+
             // Reset game
             if (world.Player.Dead)
             {

@@ -11,6 +11,7 @@ namespace Interstellar.Controllers
         public const float ThumbStickDeadZone = .1f;
 
         public static bool Attack = false;
+        public static bool Pause = false;
         public static bool IsUsingGamePad = false;
 
         private static KeyboardState keyboardState, lastKeyboardState;
@@ -21,6 +22,7 @@ namespace Interstellar.Controllers
         public static void Reset()
         {
             Attack = false;
+            Pause = false;
         }
 
         public static void Update(Camera2D cam)
@@ -53,11 +55,24 @@ namespace Interstellar.Controllers
                 else
                     Attack = false;
             }
+
+            // Pause
+            if (IsUsingGamePad)
+            {
+                if (gamePadState.IsButtonDown(Buttons.Start) && !lastGamePadState.IsButtonDown(Buttons.Start))
+                    Pause = !Pause;
+            }
+            else
+            {
+                if (keyboardState.IsKeyDown(Keys.Escape) && !lastKeyboardState.IsKeyDown(Keys.Escape))
+                    Pause = !Pause;
+            }
         }
 
         private static void checkControlType()
         {
-            if (gamePadState.ThumbSticks.Left.LengthSquared() > ThumbStickDeadZone * ThumbStickDeadZone)
+            if (gamePadState.ThumbSticks.Left.LengthSquared() > ThumbStickDeadZone * ThumbStickDeadZone
+                || gamePadState.IsButtonDown(Buttons.Start))
                 IsUsingGamePad = true;
 
             if (keyboardState.GetPressedKeys().Length > 0 || 
