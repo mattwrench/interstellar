@@ -38,10 +38,21 @@ namespace Interstellar.Controllers
 
             camera = cam;
 
-            if (mouseState.LeftButton == ButtonState.Pressed)
-                Attack = true;
+            // Attack
+            if (IsUsingGamePad)
+            {
+                if (RightThumbstick.LengthSquared() > ThumbStickDeadZone * ThumbStickDeadZone)
+                    Attack = true;
+                else
+                    Attack = false;
+            }
             else
-                Attack = false;
+            {
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    Attack = true;
+                else
+                    Attack = false;
+            }
         }
 
         private static void checkControlType()
@@ -73,8 +84,12 @@ namespace Interstellar.Controllers
         {
             get
             {
-                // Invert y-axis to match rest of game
-                return new Vector2(gamePadState.ThumbSticks.Left.X, -gamePadState.ThumbSticks.Left.Y);
+                if (gamePadState.ThumbSticks.Left.LengthSquared() > ThumbStickDeadZone * ThumbStickDeadZone)
+                {
+                    // Invert y-axis to match rest of game
+                    return new Vector2(gamePadState.ThumbSticks.Left.X, -gamePadState.ThumbSticks.Left.Y);
+                }
+                return new Vector2();
             }
         }
 
@@ -82,8 +97,12 @@ namespace Interstellar.Controllers
         {
             get
             {
-                // Invert y-axis to match rest of game
-                return new Vector2(gamePadState.ThumbSticks.Right.X, -gamePadState.ThumbSticks.Right.Y);
+                if (gamePadState.ThumbSticks.Right.LengthSquared() > ThumbStickDeadZone * ThumbStickDeadZone)
+                {
+                    // Invert y-axis to match rest of game
+                    return new Vector2(gamePadState.ThumbSticks.Right.X, -gamePadState.ThumbSticks.Right.Y);
+                }
+                return new Vector2();
             }
         }
 

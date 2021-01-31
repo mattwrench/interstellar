@@ -49,9 +49,18 @@ namespace Interstellar.Controllers
                 {
                     ship.ShootTimer -= ship.ShootRate;
 
-                    Vector2 dir = Vector2.Subtract(Input.MouseWorldPos, ship.Position);
-                    if (dir.LengthSquared() > 0)
-                        dir.Normalize();
+                    Vector2 dir = new Vector2();
+                    if (Input.IsUsingGamePad)
+                    {
+                        if (Input.RightThumbstick.LengthSquared() > 0)
+                            dir = Vector2.Normalize(Input.RightThumbstick);
+                    }
+                    else // KBM
+                    {
+                        dir = Vector2.Subtract(Input.MouseWorldPos, ship.Position);
+                        if (dir.LengthSquared() > 0)
+                            dir.Normalize();
+                    }
 
                     Vector2 pos = new Vector2(ship.Position.X, ship.Position.Y);
                     pos = Vector2.Add(pos, Vector2.Multiply(dir, BulletVerticalSpawnDist));
@@ -80,27 +89,50 @@ namespace Interstellar.Controllers
 
         protected override void setRotation(Ship ship)
         {
-            Vector2 dir = Vector2.Subtract(Input.MouseWorldPos, ship.Position);
-            if (dir.LengthSquared() > 0)
-                ship.Rotation = dir.GetAngle();
+            if (Input.IsUsingGamePad)
+            {
+                if (Input.RightThumbstick.LengthSquared() > 0) // Only update if past deadzone
+                {
+                    ship.Rotation = Input.RightThumbstick.GetAngle();
+                }
+            }
+            else // KBM
+            {
+                Vector2 dir = Vector2.Subtract(Input.MouseWorldPos, ship.Position);
+
+                if (dir.LengthSquared() > 0)
+                    ship.Rotation = dir.GetAngle();
+            }
         }
 
         protected override void setVelocity(Entity entity, float dt)
         {
             entity.Velocity = new Vector2();
 
-            if (Input.MoveLeft)
-                entity.Velocity.X -= 1;
-            if (Input.MoveRight)
-                entity.Velocity.X += 1;
-            if (Input.MoveUp)
-                entity.Velocity.Y -= 1;
-            if (Input.MoveDown)
-                entity.Velocity.Y += 1;
+            if (Input.IsUsingGamePad)
+            {
+                entity.Velocity = Input.LeftThumbstick;
+                // Only normalize if length > 1 to allow for small thumbstick movements
+                if (entity.Velocity.LengthSquared() > 0)
+                    entity.Velocity = Vector2.Normalize(entity.Velocity);
+                entity.Velocity = Vector2.Multiply(entity.Velocity, entity.TopSpeed);
+            }
+            else // KBM
+            {
+                if (Input.MoveLeft)
+                    entity.Velocity.X -= 1;
+                if (Input.MoveRight)
+                    entity.Velocity.X += 1;
+                if (Input.MoveUp)
+                    entity.Velocity.Y -= 1;
+                if (Input.MoveDown)
+                    entity.Velocity.Y += 1;
 
-            if (entity.Velocity.LengthSquared() > 0)
-                entity.Velocity.Normalize();
-            entity.Velocity = Vector2.Multiply(entity.Velocity, entity.TopSpeed);
+                if (entity.Velocity.LengthSquared() > 0)
+                    entity.Velocity.Normalize();
+                entity.Velocity = Vector2.Multiply(entity.Velocity, entity.TopSpeed);
+            }
+
         }
     }
 }

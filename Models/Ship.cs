@@ -30,7 +30,7 @@ namespace Interstellar.Models
                     Bounds.Width = 50;
                     Bounds.Height = 50;
                     TopSpeed = 400;
-                    ShootRate = 0.1f;
+                    ShootRate = 0.15f;
                     ScoreValue = 0;
                     break;
                 case Type.Roamer:
