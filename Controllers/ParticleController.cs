@@ -29,7 +29,12 @@ namespace Interstellar.Controllers
 
         protected override bool boundsCheck(Entity entity)
         {
-            // TODO
+            if (entity.Bounds.X < 0 ||
+                entity.Bounds.X + entity.Bounds.Width > World.Width ||
+                entity.Bounds.Y < 0 ||
+                entity.Bounds.Y + entity.Bounds.Height > World.Height)
+                return true;
+
             return false;
         }
 

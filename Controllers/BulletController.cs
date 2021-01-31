@@ -56,7 +56,7 @@ namespace Interstellar.Controllers
             {
                 if (world.Player.Bounds.Intersects(entity.Bounds))
                 {
-                    spawnParticles((Ship)entity);
+                    spawnParticles(world.Player);
                     world.Player.Dead = true;
                 }
             }
