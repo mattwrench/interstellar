@@ -28,8 +28,8 @@ namespace Interstellar.Controllers
                 playerController.Update(dt);
                 enemyController.Update(dt);
                 bulletController.Update(dt);
-                particleController.Update(dt);
             }
+            particleController.Update(dt);
         }
     }
 }

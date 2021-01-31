@@ -71,7 +71,8 @@ namespace Interstellar.Views
             foreach (Particle particle in world.Particles)
                 drawParticle(particle);
 
-            drawShip(world.Player);
+            if (!world.Player.Dead)
+                drawShip(world.Player);
 
             foreach (Ship enemy in world.Enemies)
                 drawShip(enemy);
@@ -109,6 +110,8 @@ namespace Interstellar.Views
                 drawStringAtCenter("READY");
             else if (gameState == Interstellar.GameState.Paused)
                 drawStringAtCenter("PAUSED");
+            else if (gameState == Interstellar.GameState.GameOver)
+                drawStringAtCenter("GAME OVER");
         }
 
         // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)

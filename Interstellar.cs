@@ -17,9 +17,10 @@ namespace Interstellar
         }
 
         private const float ReadyLength = 3.0f;
+        private const float GameOverLength = 3.0f;
 
         private GameState gameState;
-        private float timer;
+        private float timer, gameOverTimer;
         private GraphicsDeviceManager graphics;
         private World world;
         private ControllerSet controllers;
@@ -48,6 +49,7 @@ namespace Interstellar
         {
             gameState = GameState.Ready;
             timer = -ReadyLength; // Playing starts at 0
+            gameOverTimer = 0;
             world = new World();
             controllers = new ControllerSet(world);
             renderer = new Renderer(graphics, world, Content);
@@ -78,6 +80,8 @@ namespace Interstellar
             // Update timers
             if (gameState == GameState.Ready || gameState == GameState.Playing)
                 timer += dt;
+            if (gameState == GameState.GameOver)
+                gameOverTimer += dt;
 
             // Ready to Playing
             if (gameState == GameState.Ready && timer >= 0)
@@ -99,10 +103,10 @@ namespace Interstellar
                     gameState = GameState.Playing;
             }
 
-            // Reset game
-            if (world.Player.Dead)
+            // Game over
+            if (world.Player.Dead && gameState != GameState.GameOver)
             {
-
+                gameState = GameState.GameOver;
                 // Save high score
                 if (world.Score > world.HighScore)
                 {
@@ -117,7 +121,11 @@ namespace Interstellar
 
                     }
                 }
+            }
 
+            // Restart game
+            if (gameState == GameState.GameOver && gameOverTimer >= GameOverLength)
+            {
                 LoadContent();
             }
         }
