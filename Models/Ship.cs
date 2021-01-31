@@ -59,7 +59,7 @@ namespace Interstellar.Models
                 case Type.Shooter:
                     Bounds.Width = 40;
                     Bounds.Height = 40;
-                    TopSpeed = 200;
+                    TopSpeed = 150;
                     ShootRate = 1.5f;
                     ScoreValue = 25;
                     break;

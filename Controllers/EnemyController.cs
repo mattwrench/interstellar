@@ -10,12 +10,12 @@ namespace Interstellar.Controllers
 {
     class EnemyController : ShipController
     {
-        private const float SpawnRate = 8.0f;
+        private const float SpawnRate = 6.0f;
         private const float RoamerSpawnChance = 0.4f;
         private const float ChaserSpawnChance = 0.3f;
         private const float RunnerSpawnChance = 0.2f;
         private const float ShooterSpawnChance = 0.1f;
-        private const float MinSpawnDist = 200f;
+        private const float MinSpawnDist = 250f;
         private const float ShooterSlowdownDist = 200f;
 
         private Random rand;

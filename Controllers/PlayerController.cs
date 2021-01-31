@@ -31,7 +31,7 @@ namespace Interstellar.Controllers
         {
             foreach (Ship enemy in world.Enemies)
             {
-                if (enemy.Bounds.Intersects(((Ship)entity).CenterBounds))
+                if (enemy.FadeInTimer >= Ship.FadeInLength && enemy.Bounds.Intersects(((Ship)entity).CenterBounds))
                 {
                     spawnParticles((Ship)entity);
                     ((Ship)entity).Dead = true;
