@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.IO;
 
 namespace Interstellar
 {
@@ -39,6 +40,17 @@ namespace Interstellar
             world = new World();
             controllers = new ControllerSet(world);
             renderer = new Renderer(graphics, world, Content);
+
+            // Load high score
+            try
+            {
+                StreamReader reader = new StreamReader("highScore.txt");
+                world.HighScore = int.Parse(reader.ReadLine());
+                reader.Close();
+            } catch (Exception e)
+            {
+                world.HighScore = 0;
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,7 +66,25 @@ namespace Interstellar
         {
             // Reset game
             if (world.Player.Dead)
+            {
+
+                // Save high score
+                if (world.Score > world.HighScore)
+                {
+                    try
+                    {
+                        StreamWriter writer = new StreamWriter("highScore.txt", false);
+                        writer.WriteLine(world.Score);
+                        writer.Close();
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+
                 LoadContent();
+            }
         }
 
         protected override void Draw(GameTime gameTime)

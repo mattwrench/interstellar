@@ -98,6 +98,12 @@ namespace Interstellar.Views
             // Score
             spriteBatch.DrawString(font, "SCORE", new Vector2(), Color.White);
             spriteBatch.DrawString(font, world.Score.ToString(), new Vector2(0, font.LineSpacing - LineSpacingReduction), Color.White);
+
+            // High score
+            Vector2 size = font.MeasureString("HIGH SCORE");
+            spriteBatch.DrawString(font, "HIGH SCORE", new Vector2(ViewportWidth - size.X, 0), Color.White);
+            size = font.MeasureString(world.HighScore.ToString());
+            spriteBatch.DrawString(font, world.HighScore.ToString(), new Vector2(ViewportWidth - size.X, font.LineSpacing - LineSpacingReduction), Color.White);
         }
 
         // Draws in middle of screen horizontally, three-quarters up vertical (for easier reading)

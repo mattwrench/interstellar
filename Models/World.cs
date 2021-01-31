@@ -15,7 +15,7 @@ namespace Interstellar.Models
         public List<Ship> Enemies;
         public List<Bullet> Bullets;
         public List<Particle> Particles;
-        public int Score;
+        public int Score, HighScore;
 
         public World()
         {
