@@ -46,9 +46,9 @@ namespace Interstellar.Controllers
                     setPosition(enemy, dt);
                     enemy.SetBounds();
                     boundsCheck(enemy);
-                    if (collisionDetect(enemy) || enemy.HitByBullet)
-                        world.Enemies.RemoveAt(i);
                 }
+                if (enemy.Dead)
+                    world.Enemies.RemoveAt(i);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Interstellar.Controllers
 
         protected override bool collisionDetect(Entity entity)
         {
-            // TODO
+            // Collisions btwn ships are handled by PlayerController
             return false;
         }
 

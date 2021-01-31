@@ -24,9 +24,18 @@ namespace Interstellar.Controllers
             collisionDetect(world.Player);
         }
 
+        // Check for collisions between player and enemies
+        // Bullet collisions are handled by BulletController instead
         protected override bool collisionDetect(Entity entity)
         {
-            // TODO
+            foreach (Ship enemy in world.Enemies)
+            {
+                if (enemy.Bounds.Intersects(entity.Bounds))
+                {
+                    ((Ship)entity).Dead = true;
+                }
+            }
+
             return false;
         }
 

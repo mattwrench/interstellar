@@ -17,7 +17,7 @@ namespace Interstellar.Models
         }
 
         public Type ShipType;
-        public bool HitByBullet;
+        public bool Dead;
         public float FadeInTimer;
         public Ship(Vector2 pos, Type type)
         {
@@ -63,7 +63,7 @@ namespace Interstellar.Models
             SetBounds();
 
             ShootTimer = 0;
-            HitByBullet = false;
+            Dead = false;
 
             FadeInTimer = 0;
 

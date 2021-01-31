@@ -4,6 +4,7 @@ using Interstellar.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Interstellar
 {
@@ -43,9 +44,17 @@ namespace Interstellar
         protected override void Update(GameTime gameTime)
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            setGameState(dt);
             Input.Update(renderer.Cam);
             controllers.Update(dt);
             base.Update(gameTime);
+        }
+
+        private void setGameState(float dt)
+        {
+            // Reset game
+            if (world.Player.Dead)
+                LoadContent();
         }
 
         protected override void Draw(GameTime gameTime)

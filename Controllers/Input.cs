@@ -14,6 +14,11 @@ namespace Interstellar.Controllers
         private static MouseState mouseState, lastMouseState;
         private static Camera2D camera;
 
+        public static void Reset()
+        {
+            Attack = false;
+        }
+
         public static void Update(Camera2D cam)
         {
             lastKeyboardState = keyboardState;
